@@ -4,7 +4,7 @@ int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     freopen("pails.in", "r", stdin);
-	  freopen("pails.out", "w", stdout);
+    freopen("pails.out", "w", stdout);
     int x,y,m;
     cin>>x>>y>>m;
     int M = 0;
