@@ -4,7 +4,7 @@ int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     freopen("speeding.in", "r", stdin);
-	freopen("speeding.out", "w", stdout);
+    freopen("speeding.out", "w", stdout);
     int M = 0;
     vector< pair<int,int> > road;
     vector< pair<int,int> > cow;
