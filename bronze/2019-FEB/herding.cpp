@@ -4,7 +4,7 @@ int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     freopen("herding.in", "r", stdin);
-	freopen("herding.out", "w", stdout);
+    freopen("herding.out", "w", stdout);
     vector<long long>v;
     for(int i = 0; i <3;i++){
         long long input; cin>>input;
