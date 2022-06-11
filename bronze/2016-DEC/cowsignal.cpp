@@ -4,7 +4,7 @@ int main(){
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     freopen("cowsignal.in", "r", stdin);
-	freopen("cowsignal.out", "w", stdout);
+    freopen("cowsignal.out", "w", stdout);
     int m,n,k;
     cin>>m>>n>>k;
     for(int i = 0; i < m;i++){
