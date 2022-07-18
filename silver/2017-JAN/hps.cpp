@@ -43,6 +43,7 @@ int main() {
 		for(int j = 0 ; j < 3;j++){
 			if(max_cur==arr[j][i])ind=j;
 		}
+		//check the other two
 		if(ind==0){
 		int curr1 = arr[0][i] + (arr[1][n-1]-arr[1][i]);
 		int curr2 = arr[0][i] + (arr[2][n-1]-arr[2][i]);
