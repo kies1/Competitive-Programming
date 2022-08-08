@@ -1,61 +1,60 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+constexpr int MN = 3002;
+vector<vector<int>> adj(MN);
+vector<bool> visited(MN,false);
+vector<bool> closed(MN,false);
+vector<int> order(MN);
+int nodeCnt = 0;
+
+void dfs (int node){
+
+	if(closed[node] || visited[node]) return;
+
+	visited[node]=true;\
+	nodeCnt++;
+
+	for(auto child: adj[node]){
+		if(visited[child]==false){
+			dfs(child);
+		}
+	}
+}
+
 int main() {
 	ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    freopen("div7.in", "r", stdin);
-	freopen("div7.out", "w", stdout);
-	int n; cin>>n;
-	vector<long long> v(n);
-	int first; cin>>first;
-	v[0]=first%7;
-	for(int i = 1; i < n; i++){
-		int x; cin>>x;
-		v[i]=(v[i-1]+x)%7;
+        cin.tie(nullptr);
+	freopen("closing.in", "r", stdin);
+	freopen("closing.out", "w", stdout);
+	int n, m;
+	cin>>n>>m;
+
+	for(int i = 0; i < m;i++){
+		int a, b;
+		cin>>a>>b;
+		adj[a].push_back(b);
+		adj[b].push_back(a);
 	}
-	vector<int> s(7,-1);
-	int ans = 0;
+
+	dfs(1);
+
+	if(nodeCnt==n)cout<<"YES"<<endl;
+	else cout<<"NO"<<endl;
+
 	for(int i = 0; i <n; i++){
-		if(s[v[i]]==-1){
-			s[v[i]]=i;
+		cin>>order[i];
+	}
+
+	for(int i = 0; i < n-1; i++){
+		fill(visited.begin(),visited.end(),false);
+		nodeCnt=0;
+		closed[order[i]]=true;
+		dfs(order[n-1]);
+		if(nodeCnt==n-i-1){
+			cout<<"YES"<<endl;
 		}else{
-			ans=max(ans,i-s[v[i]]);
+			cout<<"NO"<<endl;
 		}
 	}
-	cout<<ans;
 }
-
-//prefix sum modulo 7 bcuz lets say u have 1,3,4 so the ps array is 1,4,8 and the modulo 7 ps array is 1,4,1 so everything between the same modulo # is divisible by 7
-
-/*
-SLOWER SOLUTION ONLY GETS 8/10
-
-#include <bits/stdc++.h>
-using namespace std;
-
-int main() {
-	ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    freopen("div7.in", "r", stdin);
-	freopen("div7.out", "w", stdout);
-	int n; cin>>n;
-	vector<long long> v(n);
-	int first; cin>>first;
-	v[0]=first;
-	for(int i = 1; i < n; i++){
-		int x; cin>>x;
-		v[i]=v[i-1]+x;
-	}
-	int M = 0;
-	for(int i = n-1; i >=0;  i--){
-		for(int j = 0; j<i; j++){
-			long long curr = v[i]-v[j];
-			if(curr%7==0&&i-j>M){
-				M=i-j;
-			}
-		}
-	}
-	cout<<M;
-}
-*/
