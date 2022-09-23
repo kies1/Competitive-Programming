@@ -50,8 +50,6 @@ vector<long long> dist(int start, vector<vector<int> >& adj){
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
     setIO("piggyback");
     cin>>B>>E>>P>>N>>M;
 
