@@ -1,3 +1,10 @@
+//BFS finds the shorterst path from one point to another
+//Use this logic to find the shortest point from a starting point (for Bessie it would be 1, for Elsie it would be 2)
+//Then, find the shortest path from the barn (or the end, or N) to any point
+//So if Bessie and Elsie meet up, they can take the shortest route to the barn
+//You want to test for all possible points for where they meet up
+//The answer will be the minimum of distBessie[meet]*B + distElsie[meet]*E + distEverywhere[meet]*P for all points where they meet
+
 #include <bits/stdc++.h>
 using namespace std;
 
