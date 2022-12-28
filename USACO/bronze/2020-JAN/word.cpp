@@ -11,38 +11,38 @@ void setIO(std::string s) {
 int main() {
     std::ios_base::sync_with_stdio(false);
     std::cin.tie(nullptr);
-  
     setIO("word");
-    
-int bronzeInitial, bronzeFinal;
-std::cin >> bronzeInitial >> bronzeFinal;
+    int n, k;
+    std::cin >> n >> k;
 
-int silverInitial, silverFinal;
-std::cin >> silverInitial >> silverFinal;
+    std::vector<std::string> v(n);
 
-int goldInitial, goldFinal;
-std::cin >> goldInitial >> goldFinal;
+    for(int i = 0; i < n; i++) std::cin >> v[i];
+  
+    std::string curr = "";
+    int clength = 0;
 
-  int platInitial, platFinal;
-  std::cin >> platInitial >> platFinal;
-
-  int s = 0, g = 0, p = 0;
-
-  if(platFinal > platInitial){
-    p+= platFinal - platInitial;
-    goldInitial -= (platFinal - platInitial);
+  for(int i = 0; i < n; i++){
+    if(clength + v[i].length() > k){
+      std::cout << curr << nl;
+      curr = "";
+      clength = 0;
+      if(clength == 0){
+        curr += v[i];
+      }else{
+        curr += ' ';
+        curr += v[i];
+      }
+      clength += v[i].length();
+    }else{
+      if(clength == 0){
+        curr += v[i];
+      }else{
+        curr += ' ';
+        curr += v[i];
+      }
+      clength += v[i].length();
+    }
   }
-
-  if(goldFinal > goldInitial){
-    g += goldFinal > goldInitial;
-    silverInitial -= (goldFinal - goldInitial);
-  }
-
-  if(silverFinal > silverInitial){
-    s += (silverFinal > silverInitial);
-  }
-
-  std::cout << s << nl;
-  std::cout << g << nl;
-  std::cout << p << nl;
+  std::cout << curr << nl;
 }
