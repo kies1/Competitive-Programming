@@ -1,37 +1,51 @@
 #include <bits/stdc++.h>
-using namespace std;
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    freopen("speeding.in", "r", stdin);
-    freopen("speeding.out", "w", stdout);
-    int M = 0;
-    vector< pair<int,int> > road;
-    vector< pair<int,int> > cow;
-    int n1,n2;
-    cin>>n1>>n2;
-    while(n1--){
-        int a,b;
-        cin>>a>>b;
-        road.push_back(make_pair(a,b));
+typedef long long ll;
+const int MOD  = 1e9 + 7;
+#define nl '\n';
+#define dbg(v)                                                                 \
+    std::cout << "Line(" << __LINE__ << ") -> " << #v << " = " << (v) << '\n';
+
+void setIO(std::string s) {
+    freopen((s + ".in").c_str(), "r", stdin);
+    freopen((s + ".out").c_str(), "w", stdout);
+}
+
+int main() {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    setIO("speeding");
+
+    int n, m;
+    std::cin >> n >> m;
+
+    std::vector<std::pair<int, int> > road(n);
+    std::vector<std::pair<int, int> > route(m);
+
+    for(int i = 0; i < n; i++){
+        std::cin >> road[i].first >> road[i].second;
     }
-    while(n2--){
-        int a,b;
-        cin>>a>>b;
-        cow.push_back(make_pair(a,b));
+
+    for(int i = 0; i < m; i++){
+        std::cin >> route[i].first >> route[i].second;
     }
-    int ind_road = 0;
-    int ind_cow = 0;
-    while(true){
-        int speed_over = cow[ind_cow].second- road[ind_road].second;
-        if(speed_over>M)M=speed_over;
-        int diff = min(cow[ind_cow].first,road[ind_road].first);
-        cow[ind_cow].first -= diff;
-        
-        road[ind_road].first -= diff;
-        if(cow[ind_cow].first==0)ind_cow++;
-        if(road[ind_road].first==0)ind_road++;
-        if(cow[cow.size()-1].first==0)break;
+
+    int ans = 0;
+    int roadIndex = 0;
+    int routeIndex = 0;
+    int roadTotal  = road[0].first;
+    int routeTotal = route[0].first;
+    for(int i = 1; i <= 100; i++){
+        if(i > roadTotal){
+            roadIndex++;
+            roadTotal += road[roadIndex].first;
+        }
+        if(i > routeTotal){
+            routeIndex++;
+            routeTotal += route[routeIndex].first;
+        }
+
+        ans = std::max(ans, route[routeIndex].second - road[roadIndex].second);
     }
-    cout<<M;
+
+    std::cout << ans << nl;
 }
