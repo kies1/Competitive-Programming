@@ -1,57 +1,45 @@
-
 #include <bits/stdc++.h>
-using namespace std;
-
 typedef long long ll;
-#define mp make_pair
-#define pb push_back
-#define pii pair<int,int>
+const int MOD  = 1e9 + 7;
+#define nl '\n';
+#define dbg(v)                                                                 \
+    std::cout << "Line(" << __LINE__ << ") -> " << #v << " = " << (v) << '\n';
 
-const int MOD = (int) 1e9+7;
-
-void setIO(string s) {
-	freopen((s + ".in").c_str(), "r", stdin);
-	freopen((s + ".out").c_str(), "w", stdout);
+void setIO(std::string s) {
+    freopen((s + ".in").c_str(), "r", stdin);
+    freopen((s + ".out").c_str(), "w", stdout);
 }
-
-void fastRead(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-}
-
-int n;
-vector<int> cnt (26, 0);
 
 int main() {
-    fastRead();
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
     setIO("blocks");
-    cin >> n;
+    
+    int n; std::cin >> n;
 
-    for(int i = 0; i < n; i++){
-        string a, b;
-        cin >> a >> b;
+    std::vector<int> ans(26, 0);
 
-        vector<int> countA (26, 0);
-        vector<int> countB (26, 0);
-        for(int j = 0; j < a.length(); j++){
-            countA[a[j]-'a']++;
+    while(n--){
+        std::string a, b; std::cin >> a >> b;
+        std::vector<int> freqA(26, 0);
+        std::vector<int> freqB(26, 0);
+
+        for(int i = 0; i < a.length(); i++){
+            freqA[a[i] - 'a']++;
         }
 
-        for(int j = 0; j < b.length(); j++){
-            countB[b[j]-'a']++;
+        for(int i = 0; i < b.length(); i++){
+            freqB[b[i] - 'a']++;
         }
-
-
-
-        for(int j = 0; j < 26; j++){
-            cnt[j] += max(countA[j], countB[j]);
+        for(int i = 0; i < 26; i++){
+            ans[i] += std::max(freqA[i], freqB[i]);
         }
     }
 
-    
-    for(int j = 0; j < 26; j++){
-        cout << cnt[j] << endl;
+    for(int i = 0; i < 26; i++){
+        std::cout << ans[i] << nl;
     }
-    
 }
+
+
 
