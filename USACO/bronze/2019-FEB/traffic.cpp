@@ -51,7 +51,7 @@ int main() {
             firstRate.second -= traffic[i][1];
             firstRate.first = std::max(firstRate.first, 0);
         }
-    }
+    }  
 
     std::pair<int, int> lastRate = {-999999, 999999};
 
