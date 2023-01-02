@@ -1,45 +1,34 @@
-
 #include <bits/stdc++.h>
-using namespace std;
-
 typedef long long ll;
-#define mp make_pair
-#define pb push_back
-#define pii pair<int,int>
+const int MOD  = 1e9 + 7;
+#define nl '\n';
+#define dbg(v)                                                                 \
+    std::cout << "Line(" << __LINE__ << ") -> " << #v << " = " << (v) << '\n';
 
-const int MOD = (int) 1e9+7;
-
-void setIO(string s) {
-	freopen((s + ".in").c_str(), "r", stdin);
-	freopen((s + ".out").c_str(), "w", stdout);
-}
-
-void fastRead(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
+void setIO(std::string s) {
+    freopen((s + ".in").c_str(), "r", stdin);
+    freopen((s + ".out").c_str(), "w", stdout);
 }
 
 int main() {
-    fastRead();
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
     setIO("censor");
-    string s;
-    cin >> s;
-    string censor;
-    cin >> censor;
-    string ans;
-    int n = s.length();
-    int nc = censor.length();
+    
+    std::string s; std::cin >> s;
+    std::string word; std::cin >> word;
+    std::string censored;
 
-    for(int i = 0; i < n; i++){
-        if(ans.size() >= nc){
-            if(ans.substr(ans.size()-nc) == censor){
-                ans.resize(ans.size()-nc);
-            }
+    for(int i = 0; i < s.length(); i++){
+        censored += s[i];
+
+        if(censored.size() >= word.size() && censored.substr(censored.size() - word.size()) == word){
+            censored.resize(censored.size() - word.size());
         }
-
-        ans += s[i];
     }
 
-    cout << ans <<endl;
-}
+    std::cout << censored << nl;
+}   
+
+
 
