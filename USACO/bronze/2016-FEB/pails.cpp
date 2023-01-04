@@ -1,42 +1,36 @@
 #include <bits/stdc++.h>
-using namespace std;
-int main(){
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    freopen("pails.in", "r", stdin);
-    freopen("pails.out", "w", stdout);
-    int x,y,m;
-    cin>>x>>y>>m;
-    int M = 0;
-    int curr = 0;
-    while(curr<=m){
-        curr+=y;
-    }
-    if(curr>m)curr-=y;
-    M = max(curr,M);
-    int turns = curr/y;
-    while(turns--){
-        curr-=y;
-        while(curr<=m){
-            curr+=x;
+#include <cmath>
+typedef long long ll;
+const int MOD  = 1e9 + 7;
+#define x first
+#define y second
+#define nl '\n';
+#define dbg(v)                                                                 \
+    std::cout << "Line(" << __LINE__ << ") -> " << #v << " = " << (v) << '\n';
+
+void setIO(std::string s) {
+    freopen((s + ".in").c_str(), "r", stdin);
+    freopen((s + ".out").c_str(), "w", stdout);
+}
+
+int main() {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    setIO("pails");
+
+    int x, y, m;
+    std::cin >> x >> y >> m;
+
+    int ans = 0;
+    for(int i = 0; i <= m; i+=x){
+        for(int j = 0; j <= m && i + j <= m; j+=y){
+            int curr = i + j;
+            ans = std::max(curr, ans);
         }
-        if(curr>m)curr-=x;
-        M=max(curr,M);
     }
-    int curr2=0;
-    while(curr2<=m){
-        curr2+=x;
-    }
-    if(curr2>m)curr2-=x;
-    M = max(curr2,M);
-    int turns2 = curr2/x;
-    while(turns2--){
-        curr2-=x;
-        while(curr2<=m){
-            curr2+=y;
-        }
-        if(curr2>m)curr2-=y;
-        M=max(curr2,M);
-    }
-    cout<<M;
+
+    std::cout << ans << nl;
 }   
+
+
+
