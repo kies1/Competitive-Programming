@@ -17,27 +17,25 @@ int main() {
     std::cin.tie(nullptr);
 
     int n; std::cin >> n;
-    std::vector<int> flower(n);
+    std::vector<char> dir(n);
+    std::vector<int> len(n);
 
-    for(int i = 0; i < n; i++) std::cin >> flower[i];
+    for(int i = 0; i < n; i++){
+        std::cin >> dir[i] >> len[i];
+    }
 
-    int ans = 0;
+    int ans = 1000;
 
-    for(int k = 0; k < n; k++){
-        for(int i = 0; i < n; i++){
-            if(i > k) continue;
-            int sum = 0;
-            for(int j = i; j <= k; j++){
-                sum += flower[j];
-            }
-            int total = k - i + 1;
-            for(int j = i; j <= k; j++){
-                if(flower[j] * total == sum){
-                    ans++;
-                    break;
-                }
+    for(int i = 0; i < n; i++){
+        int lie = 0;
+        for(int j = 0; j < n; j++){
+            if(dir[j] == 'G'){
+                if(!(len[i] >= len[j])) lie++;
+            }else{
+                if(!(len[i] <= len[j])) lie++;
             }
         }
+        ans = std::min(ans, lie);
     }
 
     std::cout << ans << nl;
