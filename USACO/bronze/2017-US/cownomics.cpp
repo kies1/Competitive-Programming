@@ -17,42 +17,68 @@ int main() {
     std::cin.tie(nullptr);
     setIO("cownomics");
     
-    int n, m; std::cin >> n >> m;
+    int n, m; 
+    std::cin >> n >> m;
 
-    std::vector<std::vector<char> > spotty (n, std::vector<char> (m));
-    std::vector<std::vector<char> > plain (n, std::vector<char> (m));
+    std::vector<std::vector<int> > spotty (n, std::vector<int>(m));
+    std::vector<std::vector<int> > plain (n, std::vector<int>(m));
 
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
-            std::cin >> spotty[i][j];
+            char c; std::cin >> c;
+            if(c == 'A'){
+                spotty[i][j] = 0;
+            }else if(c == 'G'){
+                spotty[i][j] = 1;
+            }else if(c == 'C'){
+                spotty[i][j] = 2;
+            }else{
+                spotty[i][j] = 3;
+            }
         }
     }
 
     for(int i = 0; i < n; i++){
         for(int j = 0; j < m; j++){
-            std::cin >> plain[i][j];
+            char c; std::cin >> c;
+            if(c == 'A'){
+                plain[i][j] = 0;
+            }else if(c == 'G'){
+                plain[i][j] = 1;
+            }else if(c == 'C'){
+                plain[i][j] = 2;
+            }else{
+                plain[i][j] = 3;
+            }
         }
     }
 
     int ans = 0;
-
     for(int i = 0; i < m; i++){
-        std::set<char> charSpotty;
-        std::set<char> charPlain;
+        for(int j = i + 1; j < m; j++){
+            for(int k = j + 1; k < m; k++){
+                std::vector<bool> ids(64);
 
-        for(int j = 0; j < n; j++){
-            charSpotty.insert(spotty[j][i]);
-            charPlain.insert(plain[j][i]);
-        }
+                for(int col = 0; col < n; col++){
+                    int total = (spotty[col][i] * 16 +
+                        spotty[col][j] * 4 +
+                        spotty[col][k]);
+                    ids[total] = true;
+                }
 
-        bool ok = true;
-        for(auto spottyGene: charSpotty){
-            for(auto plainGene: charPlain){
-                if(spottyGene == plainGene) ok = false;
+                bool ok = true;
+                for(int col = 0; col < n; col++){
+                    int total = (plain[col][i] * 16 +
+                        plain[col][j] * 4 +
+                        plain[col][k]);
+                    if(ids[total]){
+                            ok = false;
+                            break;
+                        }
+                }
+                ans += ok;
             }
         }
-
-        if(ok) ans++;
     }
 
     std::cout << ans << nl;
