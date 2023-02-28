@@ -1,76 +1,48 @@
-//For all queries, find the lowerbound and upperbound index
-//The answer is index(upper) - index(lower) + 1 
-
 #include <bits/stdc++.h>
-using namespace std;
-
+#include <numeric>
 typedef long long ll;
-#define mp make_pair
-#define pb push_back
-#define pii pair<int,int>
+const int MOD  = 1e9 + 7;
+#define x first
+#define y second
+#define nl '\n';
+#define dbg(v)                                                                 \
+    std::cout << "Line(" << __LINE__ << ") -> " << #v << " = " << (v) << '\n';
 
-const int MOD = (int) 1e9+7;
-
-void setIO(string s) {
-	freopen((s + ".in").c_str(), "r", stdin);
-	freopen((s + ".out").c_str(), "w", stdout);
+void setIO(std::string s) { 
+    freopen((s + ".in").c_str(), "r", stdin);
+    freopen((s + ".out").c_str(), "w", stdout);
 }
 
-void fastRead(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-}
 
-int n, q;
-vector<int> a;
-
-int main(){
-    fastRead();
-    setIO("haybales");
-
-    cin >> n >> q;
+void solve(){
+    int n, q; std::cin >> n >> q;
+    std::vector<ll> loci(n);
 
     for(int i = 0; i < n; i++){
-        int x; cin >> x;
-        a.pb(x);
+        std::cin >> loci[i];
     }
 
-    sort(a.begin(), a.end());
-    for(int i = 0; i < q; i++){
-        int lowerbound, upperbound;
-        cin >> lowerbound >> upperbound;
-        int indexLower, indexUpper;
+    std::sort(loci.begin(), loci.end());
 
-        int l = -1, r = n;
+    while(q--){
+        ll l, r;
+        std::cin >> l >> r;
 
-        while(r > l + 1){
-            int mid = (r + l) / 2;
+        auto itl = std::lower_bound(loci.begin(), loci.end(), l);
+        auto itr = std::lower_bound(loci.begin(), loci.end(), r);
+        int left = itl - loci.begin();
+        int right = itr - loci.begin();
 
-            if(a[mid] >= lowerbound){
-                r = mid;
-            }else{
-                l = mid;
-            }
+        if(*itr != r){
+            right--;
         }
-
-        indexLower = r;
-        l = -1;
-        r = n;
-
-        while(r > l + 1){
-            int mid = (r + l) / 2;
-
-            if(a[mid] <= upperbound){
-                l = mid;
-            }else{
-                r = mid;
-            }
-        }
-
-        indexUpper = l;
-
-        cout << indexUpper << indexLower;
-        cout << indexUpper - indexLower + 1 << endl;
+        std::cout << right - left + 1 << nl;
     }
-
 }
+
+int main() {
+    std::ios_base::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    setIO("haybales");
+    solve();
+} 
